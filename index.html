@@ -35,14 +35,10 @@
 *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
 
 body{
-  background:var(--white);
-  color:var(--black);
-  font-family:var(--sans);
-  font-size:16px;
-  line-height:1.55;
+  background:var(--white);color:var(--black);
+  font-family:var(--sans);font-size:16px;line-height:1.55;
   -webkit-font-smoothing:antialiased;
 }
-
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 
 /* ── Header ───────────────────────────────────────────────────────────── */
@@ -66,6 +62,17 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 }
 .meta dd{font-size:15px;line-height:1.35}
 
+/* ── Video completo ───────────────────────────────────────────────────── */
+.hero{background:var(--black);padding:56px 0 64px}
+.hero .wrap{display:flex;flex-direction:column;gap:20px}
+.hero h2{
+  font-family:var(--mono);font-size:12px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--lime-400);
+}
+.hero video{width:100%;height:auto;display:block;border:1px solid rgba(255,255,255,.25)}
+.hero .caption{font-size:14px;color:rgba(255,255,255,.66);max-width:80ch}
+.hero .caption strong{color:rgba(255,255,255,.92)}
+
 /* ── Barra strumenti ──────────────────────────────────────────────────── */
 .toolbar{border-bottom:1px solid var(--gray-300);background:var(--white);position:sticky;top:0;z-index:10}
 .toolbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:24px;padding-top:14px;padding-bottom:14px}
@@ -84,50 +91,26 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
 
 /* ── Griglia frame ────────────────────────────────────────────────────── */
 .board{padding:48px 0 96px}
+.board > .wrap > h2{
+  font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--gray-700);margin-bottom:28px;
+}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:44px 32px}
 .beat{display:flex;flex-direction:column}
 
-/* Il frame 16:9 — container query: la tipografia scala col riquadro */
 .frame{
   container-type:inline-size;
   position:relative;aspect-ratio:16/9;overflow:hidden;
   background:var(--bluette-900);border:1px solid var(--black);
 }
-.frame img,.frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
+.frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
 
-/* Nessun trattamento sopra i clip: si vedono a colori naturali. */
-.frame.solid{background:var(--bluette-700)}
-
-.layer{position:absolute;inset:0;z-index:2;padding:4.6cqw 5cqw;display:flex;flex-direction:column;color:var(--white)}
+/* i testi sono impressi nel video: qui resta solo il timecode */
+.layer{position:absolute;inset:0;z-index:2;padding:4.6cqw 5cqw;pointer-events:none}
 .tc{
   font-family:var(--mono);font-size:1.9cqw;font-weight:600;letter-spacing:.11em;
   text-transform:uppercase;color:var(--lime-400);
-}
-.spacer{flex:1}
-.block{max-width:60%}
-
-.kicker{
-  font-family:var(--mono);font-size:1.8cqw;font-weight:600;letter-spacing:.14em;
-  text-transform:uppercase;color:rgba(255,255,255,.74);margin-bottom:2cqw;
-}
-.figure{
-  font-family:var(--mono);font-weight:700;color:var(--lime-400);
-  font-size:11cqw;line-height:.84;letter-spacing:-.035em;margin-bottom:1.8cqw;
-}
-.figure.sm{font-size:9cqw}
-.figure.xl{font-size:16cqw}
-.figure .unit{font-size:.4em}
-.caption{font-family:var(--serif);font-size:4.3cqw;line-height:1.14;letter-spacing:-.01em}
-.caption.q{font-size:4.9cqw;max-width:100%}
-
-/* Card di chiusura */
-.frame.solid .layer{justify-content:flex-end}
-.endline{font-family:var(--serif);font-size:5.4cqw;line-height:1.1;margin-bottom:3.4cqw}
-.frame .logo{width:22cqw;height:auto;display:block;margin-bottom:3cqw}
-.cta{
-  display:inline-block;align-self:flex-start;border:1px solid var(--lime-400);
-  color:var(--lime-400);font-family:var(--mono);font-size:1.9cqw;font-weight:600;
-  letter-spacing:.11em;text-transform:uppercase;padding:1.4cqw 2.4cqw;
+  text-shadow:0 1px 8px rgba(0,0,0,.7);
 }
 
 /* Title safe 16:9 — toggle */
@@ -150,7 +133,7 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.4vw,60px);lin
   font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   background:var(--lime-400);color:var(--black);padding:3px 6px;
 }
-.chip.fix{background:var(--bluette-700);color:var(--white)}
+.chip.keep{background:var(--gray-300);color:var(--black)}
 .info dl{display:flex;flex-direction:column;gap:11px}
 .info dt{
   font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;
@@ -167,22 +150,20 @@ footer h2{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.
 footer ul{list-style:none;display:flex;flex-direction:column;gap:9px;max-width:80ch}
 footer li{font-size:15px;line-height:1.5;color:rgba(255,255,255,.78);padding-left:18px;position:relative}
 footer li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--lime-400)}
+footer code{font-family:var(--mono);font-size:.9em;color:var(--lime-400)}
 footer .fine{
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
   color:rgba(255,255,255,.5);margin-top:14px;
 }
 
-@media (max-width:900px){
-  .grid{grid-template-columns:1fr}
-}
+@media (max-width:900px){ .grid{grid-template-columns:1fr} }
 @media (max-width:640px){
   :root{--pad:24px}
   .grid{gap:36px}
   .masthead{padding:44px 0 40px}
-  .block{max-width:74%}
 }
 @media print{
-  .toolbar{display:none}
+  .toolbar,.hero{display:none}
   .grid{grid-template-columns:repeat(2,1fr)}
   .beat{break-inside:avoid}
 }
@@ -194,17 +175,27 @@ footer .fine{
   <div class="wrap">
     <p class="eyebrow">OpenEconomics · Storyboard visivo</p>
     <h1>Audiovisual Sector Impact&nbsp;Study</h1>
-    <p class="sub">Video risultati dello studio di impatto socioeconomico del settore audiovisivo italiano — OpenEconomics per APA, dati 2023. Nove frame, dal gancio iniziale al climax dello SROI.</p>
+    <p class="sub">Video risultati dello studio di impatto socioeconomico del settore audiovisivo italiano — OpenEconomics per APA, dati 2023. Nove beat, dal gancio iniziale al climax dello SROI.</p>
     <dl class="meta">
-      <div><dt>Durata</dt><dd>≈ 2:00</dd></div>
+      <div><dt>Durata</dt><dd>1:14</dd></div>
       <div><dt>Formato</dt><dd>Orizzontale 16:9</dd></div>
       <div><dt>Lingua</dt><dd>Inglese</dd></div>
-      <div><dt>Voiceover</dt><dd>TTS — ElevenLabs</dd></div>
-      <div><dt>Pipeline</dt><dd>Freepik → CapCut</dd></div>
+      <div><dt>Voiceover</dt><dd>Charles Haversham</dd></div>
+      <div><dt>Musica</dt><dd>Aspirazionale</dd></div>
       <div><dt>Tono</dt><dd>Cinematico, data-driven</dd></div>
     </dl>
   </div>
 </header>
+
+<section class="hero">
+  <div class="wrap">
+    <h2>Video montato</h2>
+    <video src="assets/final/OE_Audiovisual_Impact_Study_1080p.mp4"
+           poster="assets/posters/hero.jpg" controls preload="none"
+           aria-label="Video completo — Audiovisual Sector Impact Study"></video>
+    <p class="caption">1:14 · 1920×1080 · 24 fps · voiceover inglese e musica con ducking · audio a <strong>−14,3 LUFS</strong>, picco −1,5 dBTP. I nove beat qui sotto sono i segmenti che lo compongono.</p>
+  </div>
+</section>
 
 <div class="toolbar">
   <div class="wrap">
@@ -216,24 +207,22 @@ footer .fine{
 
 <main class="board">
   <div class="wrap">
+    <h2>Beat per beat</h2>
     <div class="grid" id="grid">
 
       <!-- 1 -->
       <article class="beat">
         <div class="frame">
           <video src="assets/clips-titled/01-camera.mp4" poster="assets/posters/01-camera.jpg" muted loop playsinline preload="none" aria-label="Cinepresa vintage in uno studio cinematografico"></video>
-          <div class="layer">
-            <span class="tc">0:00 – 0:12</span>
-            <span class="spacer"></span>
-          </div>
+          <div class="layer"><span class="tc">0:00 – 0:07</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 01 · Gancio</p>
+          <p class="idx">Beat 01 · Gancio <span class="chip keep">Invariato</span></p>
           <dl>
             <div><dt>On-screen</dt><dd>"How much is one euro really worth, once it's invested in film and TV?"</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">How much is one euro really worth, once it's invested in film and TV?</dd></div>
-            <div><dt>Visivo — prompt Freepik</dt><dd class="prompt">Una telecamera vintage nera appoggiata su un tavolo in uno studio cinematografico. La ripresa inizia con un'inquadratura frontale statica. La camera da presa virtuale esegue uno zoom lento e fluido verso l'obiettivo della telecamera, fino a entrare completamente nella lente.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Una cinepresa 35mm vintage appoggiata su un tavolo in uno studio cinematografico. Zoom lento e fluido verso l'obiettivo, fino a entrare nella lente.</dd></div>
           </dl>
         </div>
       </article>
@@ -242,18 +231,15 @@ footer .fine{
       <article class="beat">
         <div class="frame">
           <video src="assets/clips-titled/02-set-lights.mp4" poster="assets/posters/02-set-lights.jpg" muted loop playsinline preload="none" aria-label="Luci di un set cinematografico che si accendono"></video>
-          <div class="layer">
-            <span class="tc">0:12 – 0:24</span>
-            <span class="spacer"></span>
-          </div>
+          <div class="layer"><span class="tc">0:07 – 0:15</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 02 · Input</p>
+          <p class="idx">Beat 02 · Input <span class="chip keep">Invariato</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>€8 billion total audiovisual spend in 2023 — "What goes into the system"</dd></div>
+            <div><dt>On-screen</dt><dd>€8 BN — total audiovisual spend in 2023 · kicker "What goes into the system"</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">In 2023, Italy's audiovisual sector invested 8 billion euros.</dd></div>
-            <div><dt>Visivo — prompt Freepik</dt><dd class="prompt">Luci di un set cinematografico che si accendono una dopo l'altra, lento movimento di carrello (dolly) su un set vuoto.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Luci di un set cinematografico che si accendono una dopo l'altra, lento movimento di carrello su un set vuoto.</dd></div>
           </dl>
         </div>
       </article>
@@ -261,19 +247,16 @@ footer .fine{
       <!-- 3 -->
       <article class="beat">
         <div class="frame">
-          <video src="assets/clips-titled/03-marquee.mp4" poster="assets/posters/03-marquee.jpg" muted loop playsinline preload="none" aria-label="Insegna luminosa di un cinema sullo skyline al tramonto"></video>
-          <div class="layer">
-            <span class="tc">0:24 – 0:36</span>
-            <span class="spacer"></span>
-          </div>
+          <video src="assets/clips-titled/03-marquee.mp4" poster="assets/posters/03-marquee.jpg" muted loop playsinline preload="none" aria-label="Ingresso di un cinema contemporaneo con insegna CINEMA"></video>
+          <div class="layer"><span class="tc">0:15 – 0:22</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 03 · Valore della produzione</p>
+          <p class="idx">Beat 03 · Valore della produzione <span class="chip">Rifatto</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>€23.5 billion production value generated</dd></div>
+            <div><dt>On-screen</dt><dd>€23.5 BN — production value generated</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">That spend generated 23.5 billion euros in production value.</dd></div>
-            <div><dt>Visivo — prompt Freepik</dt><dd class="prompt">Luci dell'insegna di un cinema che scorrono sullo skyline di una città al tramonto.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Ingresso di un cinema contemporaneo di notte in una città italiana: architettura moderna in vetro, insegna luminosa <strong>CINEMA</strong>, vetrine dei poster ad arte astratta, persone che entrano. Carrello lento in avanti verso le porte.</dd></div>
           </dl>
         </div>
       </article>
@@ -282,18 +265,15 @@ footer .fine{
       <article class="beat">
         <div class="frame">
           <video src="assets/clips-titled/04-square-aerial.mp4" poster="assets/posters/04-square-aerial.jpg" muted loop playsinline preload="none" aria-label="Set cinematografico illuminato in una piazza storica, vista aerea notturna"></video>
-          <div class="layer">
-            <span class="tc">0:36 – 0:48</span>
-            <span class="spacer"></span>
-          </div>
+          <div class="layer"><span class="tc">0:22 – 0:29</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 04 · PIL <span class="chip fix">Prompt corretto</span></p>
+          <p class="idx">Beat 04 · PIL <span class="chip keep">Scena ripristinata</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>€11.8 billion contribution to GDP</dd></div>
+            <div><dt>On-screen</dt><dd>€11.8 BN — contribution to GDP</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">11.8 billion euros flowed directly into Italy's GDP.</dd></div>
-            <div><dt>Visivo — prompt Freepik</dt><dd class="prompt">Ripresa aerea notturna di una piazza storica italiana dove è allestito un set cinematografico illuminato, le cui luci si irradiano verso le strade e i tetti bui della città circostante. Lento movimento di dolly-in dall'alto.<br><em>Sostituisce il prompt precedente ("scena di un aereo nel cielo"), residuo del video Difesa &amp; Aerospazio.</em></dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Ripresa aerea notturna di una piazza storica italiana con un set cinematografico illuminato, le cui luci si irradiano verso le strade e i tetti bui della città. Lento dolly-in dall'alto.</dd></div>
           </dl>
         </div>
       </article>
@@ -301,19 +281,16 @@ footer .fine{
       <!-- 5 -->
       <article class="beat">
         <div class="frame">
-          <video src="assets/clips-titled/05-crew.mp4" poster="assets/posters/05-crew.jpg" muted loop playsinline preload="none" aria-label="Troupe cinematografica al lavoro dietro le quinte"></video>
-          <div class="layer">
-            <span class="tc">0:48 – 1:00</span>
-            <span class="spacer"></span>
-          </div>
+          <video src="assets/clips-titled/05-crew.mp4" poster="assets/posters/05-crew.jpg" muted loop playsinline preload="none" aria-label="Operatore che riprende una scena con attori in studio"></video>
+          <div class="layer"><span class="tc">0:29 – 0:37</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 05 · Occupazione <span class="chip">Prompt nuovo</span></p>
+          <p class="idx">Beat 05 · Occupazione <span class="chip">Rifatto</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>153,000 jobs sustained</dd></div>
+            <div><dt>On-screen</dt><dd>153,000 — jobs sustained</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">And behind every frame, 153,000 jobs.</dd></div>
-            <div><dt>Visivo — prompt Freepik</dt><dd class="prompt">Piano sequenza laterale lungo una troupe al lavoro dietro le quinte: microfonista, macchinista, elettricista e costumista allineati in profondità, ognuno illuminato dalla luce calda del set, volti concentrati e mani al lavoro. Carrello laterale lento e continuo.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Interno di uno studio: un operatore alla macchina da presa digitale <strong>riprende una scena</strong> recitata da due attori in costume su un set arredato, la troupe osserva dai lati. Carrello lento che supera l'operatore e entra nella scena.</dd></div>
           </dl>
         </div>
       </article>
@@ -321,39 +298,33 @@ footer .fine{
       <!-- 6 -->
       <article class="beat">
         <div class="frame">
-          <video src="assets/clips-titled/06-institution.mp4" poster="assets/posters/06-institution.jpg" muted loop playsinline preload="none" aria-label="Facciata colonnata di un edificio istituzionale al tramonto"></video>
-          <div class="layer">
-            <span class="tc">1:00 – 1:12</span>
-            <span class="spacer"></span>
-          </div>
+          <video src="assets/clips-titled/06-institution.mp4" poster="assets/posters/06-institution.jpg" muted loop playsinline preload="none" aria-label="Edificio istituzionale contemporaneo al tramonto"></video>
+          <div class="layer"><span class="tc">0:37 – 0:44</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 06 · Gettito fiscale <span class="chip">Prompt nuovo</span></p>
+          <p class="idx">Beat 06 · Gettito fiscale <span class="chip">Rifatto</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>€3.2 billion tax revenue generated</dd></div>
+            <div><dt>On-screen</dt><dd>€3.2 BN — tax revenue generated</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">3.2 billion euros returned to the public purse in tax revenue.</dd></div>
-            <div><dt>Visivo — prompt Freepik</dt><dd class="prompt">Facciata colonnata di un edificio istituzionale italiano ripresa in leggera contre-plongée al tramonto, con la luce dorata che scivola sulle colonne di pietra. Lento movimento di carrello in avanti.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Edificio ministeriale italiano contemporaneo al tramonto: architettura civica austera in pietra chiara e vetro, piazza pubblica antistante, pennoni. La camera sale su gru rivelando la facciata.</dd></div>
           </dl>
         </div>
       </article>
 
-      <!-- 7 — climax -->
+      <!-- 7 -->
       <article class="beat">
         <div class="frame">
-          <video src="assets/clips-titled/07-audience.mp4" poster="assets/posters/07-audience.jpg" muted loop playsinline preload="none" aria-label="Sala cinematografica gremita vista dallo schermo"></video>
-          <div class="layer">
-            <span class="tc">1:12 – 1:32</span>
-            <span class="spacer"></span>
-          </div>
+          <video src="assets/clips-titled/07-audience.mp4" poster="assets/posters/07-audience.jpg" muted loop playsinline preload="none" aria-label="Sala cinematografica moderna gremita"></video>
+          <div class="layer"><span class="tc">0:44 – 0:57</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 07 · Climax SROI <span class="chip">Prompt nuovo</span></p>
+          <p class="idx">Beat 07 · Climax SROI <span class="chip">Rifatto</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>SROI 4.5 — every €1 invested returns €4.5 in social value</dd></div>
+            <div><dt>On-screen</dt><dd>4.5 — every €1 invested returns €4.5 in social value · kicker "Social return on investment"</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">For every euro invested, the return is 4.5 euros in social value — the real return on investment behind Italian cinema and television.</dd></div>
-            <div><dt>Visivo — prompt Freepik</dt><dd class="prompt">Sala cinematografica gremita vista da dietro lo schermo verso il pubblico: centinaia di volti illuminati dal riverbero della proiezione, il fascio del proiettore che taglia il buio sopra le teste. La camera arretra lentamente dall'alto, rivelando l'intera platea.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Sala cinematografica moderna gremita vista frontalmente verso il pubblico: centinaia di volti di oggi illuminati dal riverbero dello schermo, il fascio del proiettore sopra le teste. La camera arretra lentamente rivelando l'intera platea.</dd></div>
           </dl>
         </div>
       </article>
@@ -361,41 +332,33 @@ footer .fine{
       <!-- 8 -->
       <article class="beat">
         <div class="frame">
-          <video src="assets/clips-titled/08-village.mp4" poster="assets/posters/08-village.jpg" muted loop playsinline preload="none" aria-label="Borgo italiano all'alba con visitatori lungo una via in pietra"></video>
-          <div class="layer">
-            <span class="tc">1:32 – 1:48</span>
-            <span class="spacer"></span>
-          </div>
+          <video src="assets/clips-titled/08-village.mp4" poster="assets/posters/08-village.jpg" muted loop playsinline preload="none" aria-label="Piazza barocca del Val di Noto con visitatori"></video>
+          <div class="layer"><span class="tc">0:57 – 1:06</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 08 · Impatti intangibili <span class="chip">Prompt nuovo</span></p>
+          <p class="idx">Beat 08 · Impatti intangibili <span class="chip">Rifatto</span></p>
           <dl>
-            <div><dt>On-screen</dt><dd>"Beyond the numbers: wellbeing, culture, film tourism"</dd></div>
+            <div><dt>On-screen</dt><dd>"wellbeing, culture, film tourism" · kicker "Beyond the numbers"</dd></div>
             <div><dt>Voiceover</dt><dd class="vo">Beyond the balance sheet: wellbeing, culture, and a new wave of film tourism across Italy.</dd></div>
-            <div><dt>Visivo — prompt Freepik</dt><dd class="prompt">Un borgo italiano su collina all'alba, visitatori che risalgono una stretta via in pietra, foschia leggera nella valle sullo sfondo, prima luce calda sui muri. Lenta panoramica che si apre dal dettaglio al paesaggio ampio.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Piazza barocca del <strong>Val di Noto</strong> in Sicilia — i luoghi di Montalbano fra Ragusa e Scicli, le atmosfere del Padrino: pietra color miele, chiesa barocca con scalinata monumentale, visitatori che fotografano. Luce dorata di tardo pomeriggio, salita su gru.</dd></div>
           </dl>
         </div>
       </article>
 
-      <!-- 9 — chiusura brand -->
+      <!-- 9 -->
       <article class="beat">
-        <div class="frame solid">
-          <div class="layer">
-            <span class="tc">1:48 – 2:00</span>
-            <span class="spacer"></span>
-            <img class="logo" src="assets/logo-white.svg" alt="OpenEconomics">
-            <p class="endline">We measure what really matters.</p>
-            <span class="cta">Discover the full study</span>
-          </div>
+        <div class="frame">
+          <video src="assets/clips-titled/closing.mp4" poster="assets/posters/closing.jpg" muted loop playsinline preload="none" aria-label="Card di chiusura OpenEconomics"></video>
+          <div class="layer"><span class="tc">1:06 – 1:14</span></div>
           <div class="safe"></div>
         </div>
         <div class="info">
-          <p class="idx">Beat 09 · Chiusura</p>
+          <p class="idx">Beat 09 · Chiusura <span class="chip">Nuovo</span></p>
           <dl>
             <div><dt>On-screen</dt><dd>"We measure what really matters." · logo OpenEconomics · CTA "Discover the full study"</dd></div>
-            <div><dt>Voiceover</dt><dd class="vo">Solo musica, oppure lettura della brand line.</dd></div>
-            <div><dt>Visivo</dt><dd class="prompt">Nessun background generato: riquadro Bluette pieno, logo OpenEconomics e tagline. Stesso schema di chiusura dell'esempio Difesa &amp; Aerospazio.</dd></div>
+            <div><dt>Voiceover</dt><dd class="vo">We measure what really matters.</dd></div>
+            <div><dt>Visivo</dt><dd class="prompt">Nessun materiale generato: card costruita da zero in Bluette pieno, con logo, tagline e CTA in entrata scaglionata.</dd></div>
           </dl>
         </div>
       </article>
@@ -408,17 +371,13 @@ footer .fine{
   <div class="wrap">
     <h2>Note di lettura</h2>
     <ul>
-      <li>I frame sono <strong>mockup di riferimento</strong> per il montaggio, non export finali: mostrano gerarchia, colore e posizione dei testi a schermo.</li>
-      <li>I clip mostrati qui sono <strong>già titolati</strong>: la tipografia è impressa nel video, con animazione di entrata e numeri che salgono a contatore. File in <code>assets/clips-titled/</code>, pronti da montare.</li>
-      <li>I clip <strong>senza testo</strong> restano in <code>assets/clips/</code>, se serve rifare i titoli diversamente o cambiare una cifra.</li>
-      <li>Animazione: kicker a 0,15s, numero a 0,45s con count-up di 1s, caption a 1,05s — tutti in dissolvenza e salita, easing in uscita. Sotto i testi c'è un'ombra sfumata neutra per la leggibilità: non altera il colore dell'immagine.</li>
-      <li>Il timecode in alto a sinistra è <strong>solo nella pagina</strong>, non nei file video.</li>
-      <li><strong>Formato 16:9.</strong> Il file Word dello storyboard riporta ancora "Vertical 9:16": va allineato. Le versioni verticali delle immagini restano in <code>assets/frames-9x16/</code>.</li>
+      <li>I clip mostrati sono <strong>quelli finiti</strong>: la tipografia è impressa nel video, con entrata scaglionata e numeri che salgono a contatore. Il timecode in alto a sinistra è solo in questa pagina, non nei file.</li>
+      <li><strong>Montaggio serrato:</strong> beat da 7–8 secondi, 13 sul climax. I clip sono stati generati direttamente corti, non tagliati da versioni lunghe.</li>
+      <li>Animazione dei titoli: kicker a 0,10s · numero a 0,30s con count-up di 0,7s · caption a 0,75s. Sotto i testi c'è un'ombra sfumata neutra per la leggibilità, che non altera il colore dell'immagine.</li>
+      <li><strong>Look contemporaneo:</strong> i beat 3–8 sono stati rigenerati senza grana né riferimenti retrò. I beat 1 e 2 sono rimasti com'erano.</li>
       <li>I numeri a schermo seguono la <strong>formattazione inglese</strong> (23.5 billion, 153,000) perché il video è in inglese — deroga consapevole alla regola OE del locale IT.</li>
-      <li>Il beat 04 aveva un prompt fuori tema ereditato dal video Difesa &amp; Aerospazio: è stato riscritto. I beat 05–08 avevano il segnaposto "scena molto bella": i prompt sono nuovi e vanno validati.</li>
-      <li><strong>Durate:</strong> i clip 07 e 08 sono a 15,1s per coprire i beat lunghi (20s e 16s); tutti gli altri a 12,1s. Il beat 07 va comunque esteso di ~5s in montaggio con un rallentamento sul climax.</li>
-      <li>I frame 01 e 07 sono stati rigenerati: la 01 era una reflex fotografica al posto di una cinepresa, la 07 aveva un mascherino nero impresso. Le versioni precedenti restano come <code>-v1</code> in <code>assets/frames/</code> e <code>assets/clips/</code>.</li>
-      <li>Title safe indicativa al 90% — attivabile dalla barra in alto.</li>
+      <li>Voiceover in TTS e musica generata con AI, come i background. I clip <strong>senza testo</strong> restano in <code>assets/clips/</code> se i titoli vanno rifatti; le versioni precedenti di ogni scena sono conservate accanto ai file correnti.</li>
+      <li>Il file Word dello storyboard non è ancora allineato: riporta formato verticale, durate vecchie e prompt segnaposto.</li>
     </ul>
     <p class="fine">OpenEconomics · Bluette #4400B3 · Lime #B9FF69 · Hedvig Letters Serif + Atkinson Hyperlegible</p>
   </div>
@@ -429,8 +388,8 @@ document.getElementById('safeToggle').addEventListener('change', function(e){
   document.getElementById('grid').classList.toggle('show-safe', e.target.checked);
 });
 
-/* I clip partono solo quando il frame entra nel viewport: evita di caricare
-   e far girare 8 video 1080p contemporaneamente. */
+/* I clip dei beat partono solo quando entrano nel viewport: evita di caricare
+   e far girare nove video 1080p insieme. Il player del montaggio è escluso. */
 var animOn = true;
 var videos = Array.prototype.slice.call(document.querySelectorAll('.frame video'));
 
